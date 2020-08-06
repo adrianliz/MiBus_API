@@ -11,4 +11,18 @@ export class BusesController {
   public getBuses = async (req: Request, res: Response) => {
     res.send(this.busesProxy.getBuses());
   }
+
+  public getBus = async (req: Request, res: Response) => {
+    const busLine = req.params.busline;
+    const carNumber = parseInt(req.params.carnumber);
+
+    console.log(busLine + " " + carNumber);
+    let bus = this.busesProxy.getBus(busLine, carNumber);
+
+    if (bus != null) {
+      res.send(this.busesProxy.getBus(busLine, carNumber));
+    } else {
+      res.status(200).send({message: "Bus not found"});
+    }
+  }
 }

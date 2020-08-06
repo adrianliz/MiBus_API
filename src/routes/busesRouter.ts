@@ -1,5 +1,5 @@
 import { BusesController } from '../controllers/busesController'
-import { Express, Request, Response } from "express";
+import { Express } from "express";
 import { BusesProxy } from "../proxy/busesProxy";
 
 export class BusesRouter {
@@ -8,6 +8,7 @@ export class BusesRouter {
   }
 
   private configureRoutes(app: Express, busesController: BusesController): void {
-    app.route('/').get(busesController.getBuses);
+    app.route('/buses').get(busesController.getBuses);
+    app.route('/bus/:busline/:carnumber').get(busesController.getBus);
   }
 }

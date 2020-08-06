@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import parser from 'fast-xml-parser';
-import { Bus, BusObject } from '../models/bus';
+import { Bus, RawBusObject } from '../models/bus';
 
 export class BusesProxy {
   private buses: Bus[];
@@ -27,7 +27,7 @@ export class BusesProxy {
     let buses: Bus[] = [];
 
     for (let i = 0; i < jsonBuses.length; i++) {
-      buses.push(new Bus(jsonBuses[i] as BusObject));
+      buses.push(new Bus(jsonBuses[i] as RawBusObject));
     }
 
     return buses;
@@ -35,5 +35,13 @@ export class BusesProxy {
 
   public getBuses(): Bus[] {
     return this.buses;
+  }
+
+  public getBus(busLine: string, carNumber: number): Bus {
+    for (let bus of this.buses) {
+      if ((bus.busLine == busLine) && (bus.carNumber == carNumber)) {
+        return bus;
+      }
+    }
   }
 }

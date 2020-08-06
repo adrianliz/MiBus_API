@@ -1,5 +1,5 @@
 # MiBus Backend-API
-API de MiBus usando node, express y typescript del proyecto MiBus
+API de `MiBus` usando node, express y typescript
 
 ## Descripción del proyecto
 `MiBus` pretende ser un software de ayuda para las personas de Teruel que 
@@ -19,6 +19,3 @@ importantes que ocurran en la empresa gestora
 
 Como objetivos secundarios, permitirá determinar la ubicación de todos los 
 autobuses y de las distintas paradas, en tiempo real
-
-## ¿Qué contiene este proyecto?
-Contiene el código correspondiente a la API del backend

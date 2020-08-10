@@ -9,7 +9,11 @@ export class BusesProxy {
     this.loadBuses();
 
     setInterval(() => {
-      this.loadBuses()
+      try {
+        this.loadBuses();
+      } catch (err) {
+        console.log(err);
+      }
     }, parseInt(process.env.BUSES_REFRESH));
   }
 

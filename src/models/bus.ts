@@ -11,8 +11,8 @@ export interface Position {
 }
 
 export class Bus {
-  public readonly carNumber: number;
   public readonly busLine: string;
+  public readonly carNumber: number;
   public readonly position: Position;
   public readonly state: string;
   public readonly speed: number;

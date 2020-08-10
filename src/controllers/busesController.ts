@@ -16,7 +16,6 @@ export class BusesController {
     const busLine = req.params.busline;
     const carNumber = parseInt(req.params.carnumber);
 
-    console.log(busLine + " " + carNumber);
     let bus = this.busesProxy.getBus(busLine, carNumber);
 
     if (bus != null) {

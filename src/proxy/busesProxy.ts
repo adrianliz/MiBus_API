@@ -6,6 +6,8 @@ export class BusesProxy {
   private buses: Bus[];
 
   constructor() {
+    this.loadBuses();
+    
     setInterval(() => {
       this.loadBuses();
     }, parseInt(process.env.BUSES_REFRESH));

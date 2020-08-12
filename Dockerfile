@@ -5,5 +5,5 @@ WORKDIR /usr/src/mibus
 COPY . .
 RUN npm install && npm run build
 
-EXPOSE 8000
+EXPOSE ${APP_PORT}
 CMD [ "node", "dist/server.js" ]

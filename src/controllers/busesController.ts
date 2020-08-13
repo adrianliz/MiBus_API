@@ -9,7 +9,7 @@ export class BusesController {
   }
 
   public getBuses = async (req: Request, res: Response) => {
-    res.send(this.busesProxy.getBuses());
+    res.send(this.busesProxy.getBuses() || []);
   }
 
   public getBus = async (req: Request, res: Response) => {

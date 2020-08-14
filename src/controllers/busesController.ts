@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 import { BusesProxy } from '../proxy/busesProxy';
 
 export class BusesController {

@@ -1,7 +1,8 @@
 import express, { Express, Request, Response } from 'express';
-import { BusesRouter } from './routes/busesRouter';
-import { BusesProxy } from './proxy/busesProxy';
 import { Client } from 'pg';
+import { BusesRouter } from './routes/busesRouter';
+import { BusStopsRouter } from './routes/busStopsRouter';
+import { BusesProxy } from './proxy/busesProxy';
 const cors = require('cors');
 
 export class App {
@@ -42,5 +43,6 @@ export class App {
 
   private initRoutes(): void {
     const busesRouter = new BusesRouter(this.app, new BusesProxy());
+    const busStopsRouter = new BusStopsRouter(this.app);
   }
 }

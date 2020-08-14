@@ -10,12 +10,12 @@ export class BusesProxy {
     
     setInterval(() => {
       this.loadBuses();
-    }, parseInt(process.env.BUSES_REFRESH));
+    }, parseInt(process.env.BUSES_REFRESH) || 30000);
   }
 
   private async loadBuses(): Promise<void> {
     try {
-      let result = await fetch(new URL(process.env.BUS_API));
+      let result = await fetch(process.env.BUS_API);
       let jsonBuses = parser.parse(await result.text());
       
       let tmpBuses = this.parseBuses(jsonBuses.list.marker);

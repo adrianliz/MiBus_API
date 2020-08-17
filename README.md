@@ -8,7 +8,8 @@ quieran utilizar el transporte público, concretamente sus líneas de autobús
 Este software tiene como objetivo permitir conocer en tiempo real la ubicación de los
 autobuses de Teruel, así como de las distintas paradas
 
-Además, permitirá conocer para cada una de las paradas 
+Además, permitirá conocer para cada una de las paradas, los autobuses de cada 
+línea que van a pasar próximamente por ellas
 
 ## Estado
 ```diff
@@ -33,5 +34,5 @@ npm run dev
 ## Production Setup
 ```bash
 docker-compose build
-docker-compose start [-d]
+docker-compose up [-d]
 ```

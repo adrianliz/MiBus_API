@@ -11,16 +11,18 @@ autobuses de Teruel, así como de las distintas paradas
 Además, permitirá conocer para cada una de las paradas 
 
 ## Estado
+```diff
 + [En desarrollo]
+```
 
 ## Variables de entorno
-APP_PORT = APP_PORT
-PGDATABASE = PGDATABASE
-PGHOST = PGHOST
-PGPASSWORD = PGPASSWORD
-PGUSER = PGUSER
-BUS_API = http://212.145.144.99:9889/BTKMonitor_RT.XML
-BUSES_REFRESH = BUSES_REFRESH
+* APP_PORT = APP_PORT
+* PGDATABASE = PGDATABASE
+* PGHOST = PGHOST
+* PGPASSWORD = PGPASSWORD
+* PGUSER = PGUSER
+* BUS_API = http://212.145.144.99:9889/BTKMonitor_RT.XML
+* BUSES_REFRESH = BUSES_REFRESH
 
 ## Development Setup
 ```bash

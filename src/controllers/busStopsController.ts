@@ -10,7 +10,7 @@ export class BusStopsController {
     );
 
     res.send(result.rows.map(busStop => 
-      new BusStop(busStop.name, new Position(parseFloat(busStop.lat), parseFloat(busStop.lon)))) || []);
+      new BusStop(busStop.id, busStop.name, new Position(parseFloat(busStop.lat), parseFloat(busStop.lon)))) || []);
   }
 
   public getBusStop = async (req: Request, res: Response) => {
@@ -21,7 +21,8 @@ export class BusStopsController {
     if (result.rows.length == 0) {
       res.status(200).send({message: "Bus stop don't found"});
     } else {
-      res.send(new BusStop(result.rows[0].name, new Position(parseFloat(result.rows[0].lat), parseFloat(result.rows[0].lon))));
+      const busStop = result.rows[0];
+      res.send(new BusStop(busStop.id, busStop.name, new Position(parseFloat(busStop.lat), parseFloat(busStop.lon))));
     }
   }
 }

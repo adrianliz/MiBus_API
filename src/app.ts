@@ -42,7 +42,9 @@ export class App {
   }
 
   private initRoutes(): void {
-    const busesRouter = new BusesRouter(this.app, new BusesProxy());
+    const busesProxy: BusesProxy = new BusesProxy();
+
+    const busesRouter = new BusesRouter(this.app, busesProxy);
     const busStopsRouter = new BusStopsRouter(this.app);
   }
 }

@@ -10,5 +10,6 @@ export class BusesRouter {
   private configureRoutes(app: Express, busesController: BusesController): void {
     app.route('/buses').get(busesController.getBuses);
     app.route('/bus/:busline/:carnumber').get(busesController.getBus);
+    app.route('/buses/stop/:id').get(busesController.getBusesStop);
   }
 }

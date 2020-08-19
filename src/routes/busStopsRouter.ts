@@ -1,5 +1,6 @@
 import { Express } from 'express';
 import { BusStopsController } from '../controllers/busStopsController';
+import { BusesProxy } from '../proxy/busesProxy';
 
 export class BusStopsRouter {
   constructor(app: Express) {

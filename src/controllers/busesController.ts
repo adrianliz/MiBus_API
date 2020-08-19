@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
-import { app } from '../server';
 import { Bus } from '../models/bus';
 import { BusesProxy } from '../proxy/busesProxy';
+import { BusStopDAO } from '../db/busStopDAO';
 
 export class BusesController {
   private busesProxy: BusesProxy;
+  private busStopDAO: BusStopDAO;
 
-  constructor(busesProxy: BusesProxy) {
+  constructor(busesProxy: BusesProxy, busStopDAO: BusStopDAO) {
     this.busesProxy = busesProxy;
+    this.busStopDAO = busStopDAO;
   }
 
   public getBuses = async (req: Request, res: Response) => {
@@ -28,25 +30,21 @@ export class BusesController {
   }
 
   public getBusesStop = async (req: Request, res: Response) => {
-    const result = await app.retrieveDBClient().query(
-      "SELECT * FROM parada WHERE id = $1", [parseInt(req.params.id) || 0]
-    );
-
-    if (result.rows.length == 0) {
-      res.status(200).send({ message: "Bus stop don't found" });
-    } else {
-      const buses: Bus[] = this.busesProxy.getBuses();
-      const busStop = result.rows[0];
+    try {
+      const busStop = await this.busStopDAO.getBusStop(parseInt(req.params.id));
+      const buses = this.busesProxy.getBuses();
 
       let busesStop: Bus[] = [];
 
       for (const bus of buses) {
-        if (bus.nextStop.match(/(\d+)/)[0] == busStop.id) {
+        if (parseInt(bus.nextStop.match(/(\d+)/)[0]) == busStop.id) {
           busesStop.push(bus);
         }
       }
 
       res.send(busesStop);
+    } catch (err) {
+      res.status(200).send({ message: "Bus stop don't found" });
     }
   }
 }

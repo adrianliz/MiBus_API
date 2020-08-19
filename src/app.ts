@@ -3,6 +3,8 @@ import { Client } from 'pg';
 import { BusesRouter } from './routes/busesRouter';
 import { BusStopsRouter } from './routes/busStopsRouter';
 import { BusesProxy } from './proxy/busesProxy';
+import { BusStopDAO } from './db/busStopDAO';
+import { symlinkSync } from 'fs';
 const cors = require('cors');
 
 export class App {
@@ -42,9 +44,10 @@ export class App {
   }
 
   private initRoutes(): void {
-    const busesProxy: BusesProxy = new BusesProxy();
+    const busesProxy = new BusesProxy();
+    const busStopDAO = new BusStopDAO();
 
-    const busesRouter = new BusesRouter(this.app, busesProxy);
-    const busStopsRouter = new BusStopsRouter(this.app);
+    new BusesRouter(this.app, busesProxy, busStopDAO);
+    new BusStopsRouter(this.app, busStopDAO);
   }
 }

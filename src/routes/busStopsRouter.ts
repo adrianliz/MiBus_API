@@ -1,10 +1,10 @@
 import { Express } from 'express';
 import { BusStopsController } from '../controllers/busStopsController';
-import { BusesProxy } from '../proxy/busesProxy';
+import { BusStopDAO } from '../db/busStopDAO';
 
 export class BusStopsRouter {
-  constructor(app: Express) {
-    this.configureRoutes(app, new BusStopsController());
+  constructor(app: Express, busStopDAO: BusStopDAO) {
+    this.configureRoutes(app, new BusStopsController(busStopDAO));
   }
 
   private configureRoutes(app: Express, busStopsController: BusStopsController): void {

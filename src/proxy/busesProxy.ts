@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import parser from 'fast-xml-parser';
 import { Bus, RawBusObject } from '../models/bus';
+import { nextTick } from 'process';
 
 export class BusesProxy {
   private buses: Bus[];
@@ -28,10 +29,19 @@ export class BusesProxy {
   }
 
   private parseBuses(jsonBuses: object[]): Bus[] {
-    let buses: Bus[] = [];
+    let buses: Bus[] = []
 
+    parseLoop:
     for (let i = 0; i < jsonBuses.length; i++) {
-      buses.push(new Bus(jsonBuses[i] as RawBusObject));
+      const bus = new Bus(jsonBuses[i] as RawBusObject);
+      
+      for (const b of buses) {
+        if (b.equals(bus)) {
+          break parseLoop;
+        }
+      }
+
+      buses.push(bus);
     }
 
     return buses;

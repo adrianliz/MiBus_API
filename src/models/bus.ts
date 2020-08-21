@@ -25,4 +25,8 @@ export class Bus {
     this.previousStop = params.cap.replace(/.*{Parada:}(.*),\s{Parada siguiente:}.*/, "$1");
     this.nextStop = params.cap.replace(/.*{Parada siguiente:}(.*),\s{Pasajeros:}.*/, "$1");
   }
+
+  public equals(bus: Bus): boolean {
+    return ((bus.busLine == this.busLine) && (bus.carNumber == this.carNumber));
+  }
 }

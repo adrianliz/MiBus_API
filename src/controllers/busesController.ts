@@ -37,8 +37,10 @@ export class BusesController {
       let busesStop: Bus[] = [];
 
       for (const bus of buses) {
-        if (parseInt(bus.nextStop.match(/(\d+)/)[0]) == busStop.id) {
-          busesStop.push(bus);
+        if (bus.nextStop != "") {
+          if (parseInt(bus.nextStop.match(/(\d+)/)[0]) == busStop.id) {
+            busesStop.push(bus);
+          }
         }
       }
 

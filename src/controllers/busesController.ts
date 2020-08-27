@@ -29,7 +29,7 @@ export class BusesController {
     }
   }
 
-  public getBusesStop = async (req: Request, res: Response) => {
+  public getNextBusesStop = async (req: Request, res: Response) => {
     try {
       const busStop = await this.busStopDAO.getBusStop(parseInt(req.params.id));
       const buses = this.busesProxy.getBuses();

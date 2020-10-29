@@ -1,10 +1,9 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import { Client } from 'pg';
 import { BusesRouter } from './routes/busesRouter';
 import { BusStopsRouter } from './routes/busStopsRouter';
 import { BusesProxy } from './proxy/busesProxy';
 import { BusStopDAO } from './db/busStopDAO';
-import { symlinkSync } from 'fs';
 const cors = require('cors');
 
 export class App {
@@ -33,9 +32,9 @@ export class App {
     this.dbClient = new Client(config);
 
     try {
-      this.dbClient.connect();
+      await this.dbClient.connect();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 

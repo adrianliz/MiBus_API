@@ -3,21 +3,32 @@ import { BusStop } from '../models/busStop';
 import { Position } from '../models/position';
 
 export class BusStopDAO {
-  public async getBusStops(): Promise<BusStop[]> {
-    const result = await app.retrieveDBClient().query(
-      "SELECT * FROM parada"
-    );
+  public getBusStops(): BusStop[] {
+    let busStops: BusStop[] = [];
 
-    return result.rows.map(busStop =>
-      new BusStop(busStop.id, busStop.name, new Position(parseFloat(busStop.lat), parseFloat(busStop.lon)))) || [];
+    app.retrieveDBClient().query(
+      "SELECT * FROM parada"
+    ).then(result => {
+      busStops = result.rows.map(busStop =>
+        new BusStop(busStop.id, busStop.name, new Position(parseFloat(busStop.lat), parseFloat(busStop.lon))));
+    }).catch(err => {
+      console.error(err.stack);
+    });
+
+    return busStops;
   }
 
-  public async getBusStop(id: Number): Promise<BusStop> {
-    const result = await app.retrieveDBClient().query(
-      "SELECT * FROM parada WHERE id = $1", [id]
-    )
+  public getBusStop(id: Number): BusStop {
+    let busStop: BusStop;
 
-    const busStop = result.rows[0];
-    return new BusStop(busStop.id, busStop.name, new Position(parseFloat(busStop.lat), parseFloat(busStop.lon)));
+    app.retrieveDBClient().query(
+      "SELECT * FROM parada WHERE id = $1", [id]
+    ).then(result => {
+      busStop = result.rows[0];
+    }).catch(err => {
+      console.error(err.stack);
+    });
+
+    return busStop;
   }
 }

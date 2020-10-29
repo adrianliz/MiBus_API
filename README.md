@@ -22,7 +22,8 @@ línea que van a pasar próximamente por ellas
 * PGHOST = PGHOST
 * PGPASSWORD = PGPASSWORD
 * PGUSER = PGUSER
-* BUS_API = http://212.145.144.99:9889/BTKMonitor_RT.XML
+* BUSES_API = http://212.145.144.99:9889/BTKMonitor_RT.XML
+* BUS_NORMAL_STATE = BUS_NORMAL_STATE
 * BUSES_REFRESH = BUSES_REFRESH
 
 ## Development Setup

@@ -1,22 +1,24 @@
 import fetch from 'node-fetch';
 import parser from 'fast-xml-parser';
 import { Bus, RawBusObject } from '../models/bus';
-import { nextTick } from 'process';
 
 export class BusesProxy {
+  private readonly BUSES_REFRESH: number = 30000;
+  private readonly BUS_NOMRAL_STATE: string = "n";
   private buses: Bus[];
 
   constructor() {
+    this.buses = [];
     this.loadBuses();
-    
+
     setInterval(() => {
       this.loadBuses();
-    }, parseInt(process.env.BUSES_REFRESH) || 30000);
+    }, parseInt(process.env.BUSES_REFRESH) || this.BUSES_REFRESH);
   }
 
   private async loadBuses(): Promise<void> {
     try {
-      let result = await fetch(process.env.BUS_API);
+      let result = await fetch(process.env.BUSES_API);
       let jsonBuses = parser.parse(await result.text());
       
       let tmpBuses = this.parseBuses(jsonBuses.list.marker);
@@ -24,7 +26,7 @@ export class BusesProxy {
         this.buses = tmpBuses;
       }
     } catch (err) {
-      console.log(err);
+      console.error(err)
     }
   }
 
@@ -41,10 +43,16 @@ export class BusesProxy {
         }
       }
 
-      buses.push(bus);
+      if (this.validateBus(bus)) {
+        buses.push(bus);
+      }
     }
 
     return buses;
+  }
+
+  private validateBus(bus: Bus): boolean {
+    return bus.state == (process.env.BUS_NORMAL_STATE || this.BUS_NOMRAL_STATE);
   }
 
   public getBuses(): Bus[] {

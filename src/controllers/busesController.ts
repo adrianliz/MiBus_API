@@ -12,7 +12,7 @@ export class BusesController {
     this.busStopDAO = busStopDAO;
   }
 
-  public getBuses = async (req: Request, res: Response) => {
+  public getBuses = async (res: Response) => {
     res.send(this.busesProxy.getBuses() || []);
   }
 
@@ -20,32 +20,33 @@ export class BusesController {
     const busLine = req.params.busline;
     const carNumber = parseInt(req.params.carnumber);
 
-    let bus = this.busesProxy.getBus(busLine, carNumber);
+    const bus = this.busesProxy.getBus(busLine, carNumber);
 
     if (bus != null) {
-      res.send(this.busesProxy.getBus(busLine, carNumber));
+      res.send(bus);
     } else {
       res.status(200).send({message: "Bus not found"});
     }
   }
 
   public getNextBusesStop = async (req: Request, res: Response) => {
-    try {
-      const busStop = await this.busStopDAO.getBusStop(parseInt(req.params.id));
+    const busStop = this.busStopDAO.getBusStop(parseInt(req.params.id));
+
+    if (busStop != null) {
       const buses = this.busesProxy.getBuses();
 
-      let busesStop: Bus[] = [];
+      let nextBusesStop: Bus[] = [];
 
       for (const bus of buses) {
         if ((bus.nextStop != "") && (bus.speed > 0)) {
           if (parseInt(bus.nextStop.match(/(\d+)/)[0]) == busStop.id) {
-            busesStop.push(bus);
+            nextBusesStop.push(bus);
           }
         }
       }
 
-      res.send(busesStop);
-    } catch (err) {
+      res.send(nextBusesStop);
+    } else {
       res.status(200).send({ message: "Bus stop don't found" });
     }
   }

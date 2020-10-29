@@ -12,7 +12,7 @@ services:
       PGHOST: ${PGHOST}
       PGPASSWORD: ${PGPASSWORD}
       PGUSER: ${PGUSER}
-      BUS_API: ${BUS_API}
+      BUS_API: ${BUSES_API}
       BUSES_REFRESH: ${BUSES_REFRESH}
     depends_on: 
       - db

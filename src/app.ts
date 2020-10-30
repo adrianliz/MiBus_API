@@ -25,8 +25,8 @@ export class App {
     const config = {
       database: process.env.PGDATABASE || "mibus",
       host: process.env.PGHOST || "localhost",
-      password: process.env.PGPASSWORD || "postgres",
       user: process.env.PGUSER || "postgres",
+      password: process.env.PGPASSWORD || "postgres",
     };
 
     this.dbClient = new Client(config);
@@ -35,6 +35,7 @@ export class App {
       await this.dbClient.connect();
     } catch (err) {
       console.error(err);
+      this.dbClient.end();
     }
   }
 

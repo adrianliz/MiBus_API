@@ -12,7 +12,7 @@ export class BusesController {
     this.busStopDAO = busStopDAO;
   }
 
-  public getBuses = async (res: Response) => {
+  public getBuses = async (req: Request, res: Response) => {
     res.send(this.busesProxy.getBuses() || []);
   }
 
@@ -30,9 +30,8 @@ export class BusesController {
   }
 
   public getNextBusesStop = async (req: Request, res: Response) => {
-    const busStop = this.busStopDAO.getBusStop(parseInt(req.params.id));
-
-    if (busStop != null) {
+    try {
+      const busStop = await this.busStopDAO.getBusStop(parseInt(req.params.id));
       const buses = this.busesProxy.getBuses();
 
       let nextBusesStop: Bus[] = [];
@@ -46,8 +45,9 @@ export class BusesController {
       }
 
       res.send(nextBusesStop);
-    } else {
-      res.status(200).send({ message: "Bus stop don't found" });
+    } catch (err) {
+      res.status(400).send({ message: "Bus stop don't found" });
+      console.error(err);
     }
   }
 }

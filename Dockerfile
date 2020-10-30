@@ -1,6 +1,6 @@
 FROM node:10
 
-WORKDIR /usr/src/mibus
+WORKDIR /usr/src/mibus_api
 
 COPY . .
 RUN npm install && npm run build

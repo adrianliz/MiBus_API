@@ -13,7 +13,7 @@ línea que van a pasar próximamente por ellas
 
 ## Estado
 ```diff
-+ [En desarrollo]
+- [Finalizado]
 ```
 
 ## Variables de entorno
